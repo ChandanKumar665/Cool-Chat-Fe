@@ -1,5 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Navbar from '../Navbar/Navbar'
+import ContactList from '../Contacts/ContactList'
 
 // #region constants
 
@@ -29,7 +31,13 @@ class Dashboard extends React.Component {
   }
 
   render () {
-    return <div></div>
+    return (
+      <div className='container'>
+        <Navbar />
+        <h2>Dashboard</h2>
+        <ContactList />
+      </div>
+    )
   }
 }
 

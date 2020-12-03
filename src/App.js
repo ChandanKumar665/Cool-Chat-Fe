@@ -1,14 +1,18 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom'
-import './App.css'
 import { RoutedContent } from './Components/Route/RoutedContent'
+import store from './store'
+import './Styles/App.scss'
 
 function App () {
   return (
     <div className='container'>
-      <Router>
-        <RoutedContent />
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <RoutedContent />
+        </Router>
+      </Provider>
     </div>
   )
 }
