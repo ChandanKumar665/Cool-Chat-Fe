@@ -1,5 +1,6 @@
 import React from 'react'
-import Navbar from '../Navbar/Navbar'
+import { connect } from 'react-redux'
+import { LoginAction } from './LoginAction'
 
 const propTypes = {}
 
@@ -11,9 +12,8 @@ const defaultProps = {}
 class Login extends React.Component {
   constructor (props) {
     super(props)
-
     this.state = {
-      username: '',
+      email: '',
       pass: ''
     }
     this.onFieldChange = this.onFieldChange.bind(this)
@@ -24,14 +24,11 @@ class Login extends React.Component {
   }
   login = e => {
     e.preventDefault()
-    const { username, pass } = this.state
-    if (username === pass) {
-      localStorage.setItem('user', JSON.stringify({ us: username, pass: pass }))
-      window.location = '/dashboard'
-    }
+    const { email, pass } = this.state
+    console.log(this.props.login(email, pass))
   }
   render () {
-    const { username, pass } = this.state
+    const { email, pass } = this.state
     return (
       <div>
         <div className='container'>
@@ -39,11 +36,11 @@ class Login extends React.Component {
           <div className='form-group py-3'>
             <input
               type='text'
-              value={username}
+              value={email}
               onChange={this.onFieldChange}
               className='form-control'
-              name='username'
-              placeholder='Username'
+              name='email'
+              placeholder='Email'
             />
           </div>
           <div className='form-group'>
@@ -70,5 +67,9 @@ class Login extends React.Component {
     )
   }
 }
-
-export default Login
+const mapStateToProps = state => ({ isLoggedIn: state.isLoggedIn })
+const actionCreator = {
+  login: LoginAction.login
+}
+//we need to connect Login component with LoginAction
+export default connect(mapStateToProps, actionCreator)(Login)
