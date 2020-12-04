@@ -1,20 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from '../Navbar/Navbar'
+import { useDispatch } from 'react-redux'
+import { ContactAction } from './ContactAction'
 
 const Create = () => {
+  const dispatch = useDispatch()
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
+
   const onFieldChange = e => {
-    console.log(e.target.value)
+    const { name, value } = e.target
+    name === 'name'
+      ? setName(value)
+      : name === 'email'
+      ? setEmail(value)
+      : setPhone(value)
+  }
+  const createContact = e => {
+    e.preventDefault()
+    //1.create a contact action
+    //2.create dispatch func
+    let data = { name, email, phone }
+    dispatch(ContactAction.addContact(data))
   }
   const fields = [
     {
       name: 'name',
-      value: '',
+      value: name,
       type: 'text',
-      placeholder: 'Name',
-      onChange: onFieldChange
+      placeholder: 'Name'
     },
-    { name: 'email', value: '', type: 'text', placeholder: 'Email' },
-    { name: 'phone', value: '', type: 'text', placeholder: 'Phone' }
+    { name: 'email', value: email, type: 'text', placeholder: 'Email' },
+    { name: 'phone', value: phone, type: 'text', placeholder: 'Phone' }
   ]
   return (
     <div>
@@ -22,13 +40,13 @@ const Create = () => {
       <div className='card border-0 shadow'>
         <div className='card-header'>Add a contact</div>
         <div className='card-body'>
-          <form>
+          <form onSubmit={createContact}>
             {fields.map((field, i) => (
               <div className='form-group' key={i}>
                 <input
                   type={field.type}
-                  // value={username}
-                  onChange={field.onChange}
+                  value={field.value}
+                  onChange={e => onFieldChange(e)}
                   className='form-control'
                   name={field.name}
                   placeholder={field.placeholder}
@@ -36,11 +54,7 @@ const Create = () => {
               </div>
             ))}
             <div className='form-group'>
-              <button
-                type='button'
-                // onClick={this.login}
-                className='btn btn-primary'
-              >
+              <button type='submit' className='btn btn-primary'>
                 Add contact
               </button>
             </div>
