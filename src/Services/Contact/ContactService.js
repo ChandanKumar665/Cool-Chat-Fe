@@ -1,5 +1,6 @@
 //contians all the contact related services
 import config from '../../Config/config'
+import axios from 'axios'
 
 const createContact = data => {
   const payload = {
@@ -14,12 +15,21 @@ const createContact = data => {
     body: JSON.stringify(payload)
   }
   const uri = `${config.DOMAIN}${config.CONTACT_API_URI}`
-
-  return fetch(uri, requestOptions)
-    .then(handleResponse)
-    .then(res => res)
 }
 
-export const contactService = {
-  createContact
+const getContactList = async userId => {
+  const requestOptions = {
+    header: { 'Content-Type': 'application/json' }
+  }
+  const uri = `${config.DOMAIN}${config.CONTACT_ENDPOINT}/${userId}`
+  try {
+    return await axios.get(uri, requestOptions)
+  } catch (error) {
+    return error
+  }
+}
+
+export const ContactService = {
+  createContact,
+  getContactList
 }

@@ -1,8 +1,9 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import Navbar from '../Navbar/Navbar'
+import { connect, useSelector } from 'react-redux'
 import ContactList from '../Contacts/ContactList'
-
+import Navbar from '../Navbar/Navbar'
+import { DashboardAction } from './DashboardAction'
+import { session } from '../../session'
 // #region constants
 
 // #endregion
@@ -29,6 +30,10 @@ class Dashboard extends React.Component {
 
     this.state = {}
   }
+  componentDidMount () {
+    const { user } = session.getSession()
+    this.props.getContactList(user.id)
+  }
 
   render () {
     return (
@@ -43,6 +48,13 @@ class Dashboard extends React.Component {
 
 Dashboard.propTypes = propTypes
 Dashboard.defaultProps = defaultProps
-// #endregion
 
-export default Dashboard
+//map props
+const mapStateToProps = state => ({
+  contactList: state.contactList,
+  user: state.LoginReducer.user
+})
+const actionCreator = {
+  getContactList: DashboardAction.getContactList
+}
+export default connect(mapStateToProps, actionCreator)(Dashboard)

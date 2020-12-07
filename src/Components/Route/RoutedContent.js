@@ -3,13 +3,18 @@ import { Redirect, Route, Switch } from 'react-router-dom'
 import Dashboard from '../Dashboard/Dashboard'
 import Login from '../Login/Login'
 import Create from '../Contacts/Create'
-
+import { session } from '../../session'
 export const RoutedContent = () => {
   return (
     <Switch>
-      <Route path='/login' component={Login} />
-      <Route path='/dashboard' component={Dashboard} />
-      <Route path='/contact/create' component={Create} />
+      <Route
+        path='/login'
+        render={props =>
+          !session.getSession() ? <Login /> : <Redirect to='/dashboard' />
+        }
+      />
+      <CustomRoute path='/dashboard' component={Dashboard} />
+      <CustomRoute path='/contact/create' component={Create} />
       {/* <Route path='/' component={Login} />
         <Route path='/register' component={Register} />
         <CustomRoute path='/dashboard' component={Dashboard} /> */}
@@ -22,12 +27,12 @@ const CustomRoute = ({
   handleChildFunc,
   ...otherProps
 }) => {
-  const userData = localStorage.getItem('userData')
+  const userData = session.getSession()
   return (
     <Route
       {...otherProps}
       render={props =>
-        userData === null ? (
+        !userData ? (
           <Redirect to='/login' />
         ) : (
           <Component

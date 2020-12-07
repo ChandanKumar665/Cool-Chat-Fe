@@ -3,26 +3,36 @@
 //after that the flow will go to its reducer(LoginReducer)
 import { UserService } from '../../Services/User/UserService'
 import { LoginConstant } from './LoginConstant'
+import { session } from '../../session'
 
-const login = (email, password) => {
-  console.log('here', email, password)
+const login = (email, password) => dispatch => {
   //pass the data to the service controller
-  return dispatch => {
-    UserService.login(email, password)
-      .then(res => {
+
+  UserService.login(email, password)
+    .then(res => {
+      if (res.response) {
+        throw Error(res.response.data.message)
+      }
+      const { data } = res
+      if (data.status) {
         dispatch({
           type: LoginConstant.LOGIN_SUCCESS,
-          payload: res.data
+          payload: data.data
         })
-      })
-      .catch(err => {
-        console.log(err)
+        session.createSession({ user: { id: data.data.id } })
+      } else {
         dispatch({
           type: LoginConstant.LOGIN_FAILURE,
-          payload: err
+          payload: null
         })
+      }
+    })
+    .catch(err => {
+      dispatch({
+        type: LoginConstant.LOGIN_FAILURE,
+        payload: err
       })
-  }
+    })
 }
 
 export const LoginAction = { login }

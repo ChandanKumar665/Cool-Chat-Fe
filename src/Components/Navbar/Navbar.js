@@ -1,11 +1,16 @@
 import React from 'react'
+import { session } from '../../session'
 
+const logout = e => {
+  e.preventDefault()
+  session.destroySession()
+}
 const Navbar = () => {
   return (
     <div>
       <nav className='navbar shadow fixed-top navbar-expand-sm navbar-dark bg-primary'>
         <div className=''>
-          <a href='#' className='navbar-brand'>
+          <a href='/' className='navbar-brand'>
             Contact Book
           </a>
         </div>
@@ -25,6 +30,9 @@ const Navbar = () => {
             <a href='/contact/create' className='btn btn-light ml-auto'>
               Create
             </a>
+            <button className='btn btn-info ml-2' onClick={logout}>
+              Logout
+            </button>
           </div>
         </div>
       </nav>

@@ -29,12 +29,12 @@
 tr:hover.actions{
   opacity: 1;
 }
-// tbody td a{
-//   color: #222;
-//   &:hover{
-//     color: rgb(73, 30, 30);
-//   }
-// }
+tbody td a{
+  color: #222;
+  &:hover{
+    color: rgb(73, 30, 30);
+  }
+}
 
 .App-link {
   color: #61dafb;

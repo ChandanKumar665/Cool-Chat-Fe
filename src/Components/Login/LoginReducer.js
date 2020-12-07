@@ -12,7 +12,7 @@ const reducer = (state = initialState, action) => {
   //define all the cases here
   switch (type) {
     case LoginConstant.LOGIN_SUCCESS:
-      return { ...state, isLoggedIn: true, user: payload }
+      return { ...state, isLoggedIn: true, user: payload._id }
     case LoginConstant.LOGIN_FAILURE:
       return { ...state, isLoggedIn: false, error: payload }
     default:

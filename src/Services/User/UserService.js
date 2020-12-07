@@ -8,7 +8,7 @@ const login = async (email, password) => {
     pass: password
   }
   const requestOptions = {
-    headers: { 'Content-Type': 'application/json' }
+    header: { 'Content-Type': 'application/json' }
   }
   const uri = `${config.DOMAIN}${config.USER_LOGIN}`
   try {

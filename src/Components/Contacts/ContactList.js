@@ -11,8 +11,7 @@ const CustomChekbox = () => (
 const header = ['', 'Name', 'Email', 'Phone', 'Actions']
 
 const ContactList = props => {
-  const contacts = useSelector(state => state.contacts)
-
+  let contacts = useSelector(state => state.DashboardReducer.contactList)
   return (
     <div>
       <table className='table'>
@@ -26,9 +25,8 @@ const ContactList = props => {
           </tr>
         </thead>
         <tbody>
-          {contacts.map((contact, i) => (
-            <Contact contact={contact} key={i} />
-          ))}
+          {contacts &&
+            contacts.map((contact, i) => <Contact contact={contact} key={i} />)}
         </tbody>
       </table>
     </div>
