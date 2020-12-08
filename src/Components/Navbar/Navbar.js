@@ -11,7 +11,7 @@ const Navbar = () => {
       <nav className='navbar shadow fixed-top navbar-expand-sm navbar-dark bg-primary'>
         <div className=''>
           <a href='/' className='navbar-brand'>
-            Contact Book
+            Chat Book
           </a>
         </div>
         <div className='container'>

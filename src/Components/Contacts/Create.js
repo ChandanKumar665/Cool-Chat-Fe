@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import Navbar from '../Navbar/Navbar'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useReducer } from 'react-redux'
 import { ContactAction } from './ContactAction'
+import { session } from '../../session'
 
-const Create = () => {
+const Create = ({ props }) => {
   const dispatch = useDispatch()
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -21,8 +22,10 @@ const Create = () => {
     e.preventDefault()
     //1.create a contact action
     //2.create dispatch func
-    let data = { name, email, phone }
-    dispatch(ContactAction.addContact(data))
+    const { user } = session.getSession()
+    let data = { name, email, phone, createdBy: user.id }
+    // console.log(data)
+    ContactAction.addContact(data)
   }
   const fields = [
     {

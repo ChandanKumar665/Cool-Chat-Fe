@@ -2,19 +2,22 @@
 import config from '../../Config/config'
 import axios from 'axios'
 
-const createContact = data => {
+const createContact = async data => {
   const payload = {
     name: data.name,
-    email: data.name,
+    email: data.email,
     phone: data.phone,
     createdBy: data.createdBy
   }
   const requestOptions = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
+    headers: { 'Content-Type': 'application/json' }
   }
-  const uri = `${config.DOMAIN}${config.CONTACT_API_URI}`
+  const uri = `${config.DOMAIN}${config.CONTACT_ENDPOINT}`
+  try {
+    return await axios.post(uri, payload, requestOptions)
+  } catch (error) {
+    return error
+  }
 }
 
 const getContactList = async userId => {
