@@ -1,5 +1,6 @@
 import React from 'react'
 import { session } from '../../session'
+import Menu from './Menu'
 
 const logout = e => {
   e.preventDefault()
@@ -15,25 +16,7 @@ const Navbar = () => {
           </a>
         </div>
         <div className='container'>
-          <ul className='nav'>
-            <li className='nav-item'>
-              <a
-                className='nav-link'
-                href='/dashboard'
-                style={{ color: 'white' }}
-              >
-                Dashboard
-              </a>
-            </li>
-          </ul>
-          <div>
-            <a href='/contact/create' className='btn btn-light ml-auto'>
-              Create
-            </a>
-            <button className='btn btn-info ml-2' onClick={logout}>
-              Logout
-            </button>
-          </div>
+          <Menu logout={logout} />
         </div>
       </nav>
     </div>

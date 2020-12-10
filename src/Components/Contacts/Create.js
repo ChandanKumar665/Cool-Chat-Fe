@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
-import Navbar from '../Navbar/Navbar'
-import { useDispatch, useReducer } from 'react-redux'
-import { ContactAction } from './ContactAction'
 import { session } from '../../session'
+import Navbar from '../Navbar/Navbar'
+import { ContactAction } from './ContactAction'
 
 const Create = ({ props }) => {
-  const dispatch = useDispatch()
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')

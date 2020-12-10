@@ -2,8 +2,8 @@
 //every LoginAction function will return a function with args dispatch
 //after that the flow will go to its reducer(LoginReducer)
 import { UserService } from '../../Services/User/UserService'
-import { LoginConstant } from './LoginConstant'
 import { session } from '../../session'
+import { LoginConstant } from './LoginConstant'
 
 const login = (email, password) => dispatch => {
   //pass the data to the service controller

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import './Styles/index.scss'
+import 'antd/dist/antd.css'
 
 // const store = createStore()
 ReactDOM.render(

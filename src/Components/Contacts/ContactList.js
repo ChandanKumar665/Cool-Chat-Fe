@@ -1,6 +1,7 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { connect, useSelector } from 'react-redux'
 import Contact from './Contact'
+import { ContactAction } from './ContactAction'
 
 const CustomChekbox = () => (
   <div className='custom-control custom-checkbox'>
@@ -12,6 +13,7 @@ const header = ['', 'Name', 'Email', 'Phone', 'Actions']
 
 const ContactList = props => {
   let contacts = useSelector(state => state.DashboardReducer.contactList)
+
   return (
     <div>
       <table className='table'>
@@ -32,5 +34,11 @@ const ContactList = props => {
     </div>
   )
 }
-
-export default ContactList
+const mapStateToProps = state => ({
+  isOpen: state.isOpen,
+  modalData: state.modalData
+})
+const actionCreator = {
+  toggleModal: ContactAction.toggleModal
+}
+export default connect(mapStateToProps, actionCreator)(ContactList)

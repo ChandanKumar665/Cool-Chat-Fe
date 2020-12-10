@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import Navbar from '../Navbar/Navbar'
 import { LoginAction } from './LoginAction'
 
 const propTypes = {}
@@ -31,6 +32,7 @@ class Login extends React.Component {
     const { email, pass } = this.state
     return (
       <div>
+        <Navbar />
         <div className='container'>
           <h1>Login here</h1>
           <div className='form-group py-3'>
@@ -61,6 +63,11 @@ class Login extends React.Component {
             >
               Login
             </button>
+          </div>
+          <div className='form-group'>
+            <a href='/register' className=''>
+              Register
+            </a>
           </div>
         </div>
       </div>

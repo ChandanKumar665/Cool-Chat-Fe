@@ -23,14 +23,25 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-.actions{
+.actions {
   opacity: 0;
 }
-tr:hover.actions{
-  opacity: 1;
+tr:hover {
+  cursor: pointer;
+  .actions{
+    opacity: 1;
+  }
 }
-tbody td a{
+tbody td a {
   color: #222;
+  &:hover {
+    color: rgb(73, 30, 30);
+  }
+}
+.nav {
+  .nav-link {
+    color: #ffffff;
+  }
   &:hover{
     color: rgb(73, 30, 30);
   }

@@ -1,9 +1,13 @@
 import React from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
+import { session } from '../../session'
+import Create from '../Contacts/Create'
+import Update from '../Contacts/Update'
 import Dashboard from '../Dashboard/Dashboard'
 import Login from '../Login/Login'
-import Create from '../Contacts/Create'
-import { session } from '../../session'
+import Index from '../Profile/Index'
+import Register from '../Register/Register'
+
 export const RoutedContent = () => {
   return (
     <Switch>
@@ -13,11 +17,16 @@ export const RoutedContent = () => {
           !session.getSession() ? <Login /> : <Redirect to='/dashboard' />
         }
       />
+      <Route
+        path='/register'
+        render={props =>
+          !session.getSession() ? <Register /> : <Redirect to='/dashboard' />
+        }
+      />
       <CustomRoute path='/dashboard' component={Dashboard} />
       <CustomRoute path='/contact/create' component={Create} />
-      {/* <Route path='/' component={Login} />
-        <Route path='/register' component={Register} />
-        <CustomRoute path='/dashboard' component={Dashboard} /> */}
+      <CustomRoute path='/profile' component={Index} />
+      <CustomRoute path='/contact/update' component={Update} />
     </Switch>
   )
 }

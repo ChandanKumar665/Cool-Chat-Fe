@@ -1,15 +1,6 @@
 import { ContactService } from '../../Services/Contact/ContactService'
+import util from '../../Util/Util'
 
-const showAlertMsg = (
-  msg = 'Success',
-  isRedirect = true,
-  path = '/dashboard'
-) => {
-  window.alert(msg)
-  if (isRedirect) {
-    window.location = path
-  }
-}
 const addContact = data => {
   ContactService.createContact(data)
     .then(res => {
@@ -18,10 +9,35 @@ const addContact = data => {
       }
       const { data } = res
       if (data.status) {
-        showAlertMsg(data.message)
+        util.showAlertMsg(data.message, true, '/dashboard')
       }
     })
-    .catch(err => showAlertMsg(`${err}`, false))
+    .catch(err => util.showAlertMsg(`${err}`, false))
 }
-
-export const ContactAction = { addContact }
+const deleteContact = data => {
+  ContactService.deleteContact(data)
+    .then(res => {
+      if (res.response) {
+        throw Error(res.response.data.message)
+      }
+      const { data } = res
+      if (data.status) {
+        util.showAlertMsg(data.message, true, '/dashboard')
+      }
+    })
+    .catch(err => util.showAlertMsg(`${err}`, false))
+}
+const updateContact = data => {
+  ContactService.updateContact(data)
+    .then(res => {
+      if (res.response) {
+        throw Error(res.response.data.message)
+      }
+      const { data } = res
+      if (data.status) {
+        util.showAlertMsg(data.message, true, '/dashboard')
+      }
+    })
+    .catch(err => util.showAlertMsg(`${err}`, false))
+}
+export const ContactAction = { addContact, deleteContact, updateContact }

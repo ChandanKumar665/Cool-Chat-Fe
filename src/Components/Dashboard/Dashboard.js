@@ -1,9 +1,9 @@
 import React from 'react'
-import { connect, useSelector } from 'react-redux'
+import { connect } from 'react-redux'
+import { session } from '../../session'
 import ContactList from '../Contacts/ContactList'
 import Navbar from '../Navbar/Navbar'
 import { DashboardAction } from './DashboardAction'
-import { session } from '../../session'
 // #region constants
 
 // #endregion
@@ -27,7 +27,6 @@ const defaultProps = {}
 class Dashboard extends React.Component {
   constructor (props) {
     super(props)
-
     this.state = {}
   }
   componentDidMount () {
@@ -39,7 +38,8 @@ class Dashboard extends React.Component {
     return (
       <div className='container'>
         <Navbar />
-        <h2>Dashboard</h2>
+        <h2>Contacts</h2>
+        <p className='mt-2'></p>
         <ContactList />
       </div>
     )
@@ -55,6 +55,7 @@ const mapStateToProps = state => ({
   user: state.LoginReducer.user
 })
 const actionCreator = {
-  getContactList: DashboardAction.getContactList
+  getContactList: DashboardAction.getContactList,
+  getUserDetails: DashboardAction.getUserDetails
 }
 export default connect(mapStateToProps, actionCreator)(Dashboard)

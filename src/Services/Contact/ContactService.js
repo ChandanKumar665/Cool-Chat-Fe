@@ -32,7 +32,37 @@ const getContactList = async userId => {
   }
 }
 
+const deleteContact = async data => {
+  const requestOptions = {
+    headers: { 'Content-Type': 'application/json' },
+    data: {
+      addedBy: data.userId,
+      id: data.contactId
+    }
+  }
+  const uri = `${config.DOMAIN}${config.CONTACT_ENDPOINT}`
+  try {
+    return await axios.delete(uri, requestOptions)
+  } catch (error) {
+    return error
+  }
+}
+const updateContact = async data => {
+  const requestOptions = {
+    headers: { 'Content-Type': 'application/json' }
+  }
+
+  const uri = `${config.DOMAIN}${config.CONTACT_ENDPOINT}`
+  try {
+    return await axios.put(uri, data, requestOptions)
+  } catch (error) {
+    return error
+  }
+}
+
 export const ContactService = {
   createContact,
-  getContactList
+  getContactList,
+  deleteContact,
+  updateContact
 }
