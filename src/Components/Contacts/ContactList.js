@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect, useSelector } from 'react-redux'
+import Alert from '../Alert/Alert'
 import Contact from './Contact'
 import { ContactAction } from './ContactAction'
 
@@ -31,6 +32,9 @@ const ContactList = props => {
             contacts.map((contact, i) => <Contact contact={contact} key={i} />)}
         </tbody>
       </table>
+      {!(contacts && contacts.length) && (
+        <Alert type='nodata' msg='No contacts' />
+      )}
     </div>
   )
 }
