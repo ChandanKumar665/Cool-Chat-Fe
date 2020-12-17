@@ -7,7 +7,7 @@ import './Styles/App.scss'
 
 function App () {
   return (
-    <div className='container'>
+    <div>
       <Provider store={store}>
         <Router>
           <RoutedContent />

@@ -12,7 +12,7 @@ const CustomChekbox = () => (
   </div>
 )
 
-const Contact = ({ contact }) => {
+const Contact = ({ contact, chatingToggle }) => {
   const deleteContact = id => {
     const { user } = session.getSession()
     ContactAction.deleteContact({ userId: user.id, contactId: id })
@@ -50,7 +50,7 @@ const Contact = ({ contact }) => {
   }
   return (
     <>
-      <tr>
+      <tr onClick={e => chatingToggle(contact)}>
         {Object.keys(con).map((key, i) =>
           key === 'name' ? (
             <td key={i}>

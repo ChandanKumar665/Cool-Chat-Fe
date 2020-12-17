@@ -36,7 +36,7 @@ class Dashboard extends React.Component {
 
   render () {
     return (
-      <div className='container'>
+      <div className='container-fluid'>
         <Navbar />
         <h2>Contacts</h2>
         <p className='mt-2'></p>
