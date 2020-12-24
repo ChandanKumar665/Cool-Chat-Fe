@@ -13,7 +13,9 @@ class Index extends Component {
     return (
       <div className='container'>
         <Navbar />
-        <h2>Profile</h2>
+        <div className='mt-2'></div>
+        <h3>Profile</h3>
+        <div className='mt-2'></div>
         <hr />
         <Profile />
       </div>

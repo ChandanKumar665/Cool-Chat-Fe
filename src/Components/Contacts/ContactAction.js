@@ -1,4 +1,6 @@
 import { ContactService } from '../../Services/Contact/ContactService'
+import { UserService } from '../../Services/User/UserService'
+import { ContactConstant } from './ContactConst'
 import util from '../../Util/Util'
 
 const addContact = data => {
@@ -40,4 +42,30 @@ const updateContact = data => {
     })
     .catch(err => util.showAlertMsg(`${err}`, false))
 }
-export const ContactAction = { addContact, deleteContact, updateContact }
+const getChatList = id => async dispatch => {
+  UserService.getUserChatList(id)
+    .then(res => {
+      if (res.response) {
+        throw Error(res.response.data.message)
+      }
+      const { data } = res
+      if (data.status) {
+        dispatch({
+          type: ContactConstant.CHAT_LIST_SUCCESS,
+          payload: data.data
+        })
+      }
+    })
+    .catch(err =>
+      dispatch({
+        type: ContactConstant.CHAT_LIST_ERROR,
+        payload: []
+      })
+    )
+}
+export const ContactAction = {
+  addContact,
+  deleteContact,
+  updateContact,
+  getChatList
+}

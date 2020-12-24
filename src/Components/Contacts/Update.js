@@ -26,41 +26,50 @@ class Update extends Component {
   render () {
     const { name, email, phone } = this.state
     return (
-      <div>
-        <Navbar />
-        <form onSubmit={this.updateContact}>
-          <div className='form-group'>
-            <label>Name:</label>
-            <input
-              type='text'
-              value={name}
-              onChange={this.onFieldChange}
-              className='form-control'
-              name='name'
-            />
+      <div className='container'>
+        <div className='row'>
+          <div className='col-sm-3'></div>
+          <div className='col-sm-6'>
+            <Navbar />
+            <div className='mt-2'></div>
+            <h3>Update Contact</h3>
+            <hr></hr>
+            <form onSubmit={this.updateContact}>
+              <div className='form-group'>
+                <label>Name:</label>
+                <input
+                  type='text'
+                  value={name}
+                  onChange={this.onFieldChange}
+                  className='form-control'
+                  name='name'
+                />
+              </div>
+              <div className='form-group'>
+                <label>Name:</label>
+                <input
+                  type='text'
+                  value={email}
+                  onChange={this.onFieldChange}
+                  className='form-control'
+                  name='email'
+                />
+              </div>
+              <div className='form-group'>
+                <label>Name:</label>
+                <input
+                  type='text'
+                  value={phone}
+                  disabled
+                  className='form-control'
+                  name='phone'
+                />
+              </div>
+              <button className='btn btn-info'>Update</button>
+            </form>
           </div>
-          <div className='form-group'>
-            <label>Name:</label>
-            <input
-              type='text'
-              value={email}
-              onChange={this.onFieldChange}
-              className='form-control'
-              name='email'
-            />
-          </div>
-          <div className='form-group'>
-            <label>Name:</label>
-            <input
-              type='text'
-              value={phone}
-              disabled
-              className='form-control'
-              name='phone'
-            />
-          </div>
-          <button className='btn btn-info'>Update</button>
-        </form>
+          <div className='col-sm-3'></div>
+        </div>
       </div>
     )
   }

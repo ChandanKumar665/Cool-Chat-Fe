@@ -42,9 +42,8 @@ const Contact = ({ contact, chatingToggle }) => {
     </div>
   )
   const con = {
-    id: '',
     name: contact.name,
-    email: contact.email,
+    // email: contact.email,
     phone: contact.phone,
     actions: <Actions />
   }
@@ -58,7 +57,7 @@ const Contact = ({ contact, chatingToggle }) => {
               {con[key]}
             </td>
           ) : (
-            <td key={i}>{con[key] || <CustomChekbox />}</td>
+            <td key={i}>{con[key]}</td>
           )
         )}
       </tr>

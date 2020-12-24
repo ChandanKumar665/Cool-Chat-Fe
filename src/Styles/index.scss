@@ -3,11 +3,12 @@ $theme-colors: (
   "danger": #ff4136,
   "info":#aaaaaa,
   "nodata":#5e8acd,
-  "msg":#a3f789
+  "msg":#a3f789,
+  "footer":#b8b6b6
 );
 
 @import "bootstrap/scss/bootstrap";
 
 body {
-  padding-top: 5rem;
+  padding-top: 1rem;
 }

@@ -13,6 +13,10 @@ const reducer = (state = '', action) => {
       return { ...state, user: payload }
     case DashboardConstant.GET_USER_ERROR:
       return { ...state, user: null }
+    case DashboardConstant.CHAT_LIST_SUCCESS:
+      return { ...state, chatList: payload }
+    case DashboardConstant.CHAT_LIST_ERROR:
+      return { ...state, user: null }
 
     default:
       return state

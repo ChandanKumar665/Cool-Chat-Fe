@@ -48,9 +48,21 @@ const getUserDetails = async id => {
     return error
   }
 }
+const getUserChatList = async id => {
+  const requestOptions = {
+    header: { 'Content-Type': 'application/json' }
+  }
+  const uri = `${config.DOMAIN}${config.CHAT_ENDPOINT}/${id}`
+  try {
+    return await axios.get(uri, requestOptions)
+  } catch (error) {
+    return error
+  }
+}
 
 export const UserService = {
   login,
   register,
-  getUserDetails
+  getUserDetails,
+  getUserChatList
 }

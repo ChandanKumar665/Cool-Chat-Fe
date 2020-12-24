@@ -19,15 +19,17 @@ const Menu = props => {
                 Profile
               </a>
             </li>
+            <li className='nav-item'>
+              <a className='nav-link' href='/contact/create'>
+                Create
+              </a>
+            </li>
+            <li className='nav-item'>
+              <button className='btn btn-info' onClick={logout}>
+                Logout
+              </button>
+            </li>
           </ul>
-          <div>
-            <a href='/contact/create' className='btn btn-light ml-auto'>
-              Create
-            </a>
-            <button className='btn btn-info ml-2' onClick={logout}>
-              Logout
-            </button>
-          </div>
         </>
       ) : (
         ''

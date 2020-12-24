@@ -1,11 +1,10 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import socketIOClient from 'socket.io-client'
-import ChatMsg from './ChatMsg'
+import config from '../../Config/config'
 import { session } from '../../session'
-const ENDPOINT = 'http://localhost:4000'
-const { user } = session.getSession()
-
+import store from '../../store'
+import ChatMsg from './ChatMsg'
+import Header from './Header'
 // #region constants
 
 // #endregion
@@ -32,30 +31,75 @@ class Chat extends React.Component {
     this.state = {
       msg: '',
       rec: [],
-      id: ''
+      id: '',
+      typing: ''
     }
   }
-  componentDidMount () {
-    this.socket = socketIOClient(ENDPOINT)
+  isAuthorizedChat (data) {
+    return (
+      (data.sender === this.user.id &&
+        data.receiver === this.props.contact.userId) ||
+      (data.receiver === this.user.id &&
+        data.sender === this.props.contact.userId)
+    )
+  }
+  displayChat (data, loadHistory = false) {
+    let r = this.state.rec
+    if (loadHistory) {
+      let up = data && data.filter(item => this.isAuthorizedChat(item))
+      this.setState({ rec: up || [] })
+    } else if (this.isAuthorizedChat(data)) {
+      r.push(data)
+      this.setState({ rec: r })
+    }
+  }
+  typing (text) {
+    const { contact } = this.props
+    this.socket.emit('typing', {
+      msg: text ? 'typing...' : '',
+      receiver: contact.userId,
+      sender: this.user.id,
+      socketId: ''
+    })
+  }
+  async componentDidMount () {
+    const { user } = session.getSession()
+    this.user = user
+    const { chatList } = store.getState().ContactReducer
+    await this.displayChat(chatList, true)
+    this.scrollToBottom()
+    this.socket = socketIOClient(config.DOMAIN)
+
     this.socket.on('connected', data => {
       this.setState({ id: data.id })
     })
     this.socket.on('rec', data => {
-      let r = this.state.rec
-      if (
-        data.sender === user.id ||
-        (data.receiver === user.id && data.sender === this.props.contact.userId)
-      ) {
-        r.push(data)
-        this.setState({ rec: r })
+      this.displayChat(data)
+      this.reset()
+      this.scrollToBottom()
+    })
+    this.socket.on('typing', data => {
+      if (this.isAuthorizedChat(data)) {
+        this.setState({ typing: data.msg })
       }
     })
     this.send = this.send.bind(this)
+    this.typing = this.typing.bind(this)
   }
   componentDidUpdate (prevProps) {
     if (prevProps.contact._id !== this.props.contact._id) {
-      this.setState({ rec: [] })
+      console.log('not eq')
+      // const { chatList } = store.getState().ChatReducer
+      // this.displayChat(chatList, true)
     }
+  }
+  componentWillUnmount () {}
+  reset () {
+    this.setState({ msg: '', typing: '' })
+  }
+  scrollToBottom () {
+    const messages = document.getElementById('chat-content')
+    messages.scrollTop = messages.scrollHeight
   }
   send () {
     const { msg, id } = this.state
@@ -63,21 +107,25 @@ class Chat extends React.Component {
     this.socket.emit('send', {
       msg: msg,
       receiver: contact.userId,
-      sender: user.id,
+      sender: this.user.id,
       socketId: id
     })
-    this.setState({ msg: '' })
+    this.reset()
   }
   onFieldChange = e => {
     this.setState({ msg: e.target.value })
+    this.typing(e.target.value)
   }
   render () {
-    const { msg, rec } = this.state
+    const { msg, rec, typing } = this.state
+
     return (
       <div className='chat-area'>
-        <div className='pl-2'>
-          <h4>{this.props.contact.name}</h4>
-        </div>
+        <Header
+          name={this.props.contact.name}
+          chatingToggle={this.props.chatingToggle}
+          typing={typing}
+        />
 
         <div className='chat-box'>
           <div className='chat-content' id='chat-content'>
@@ -115,6 +163,5 @@ class Chat extends React.Component {
 
 Chat.propTypes = propTypes
 Chat.defaultProps = defaultProps
-// #endregion
 
 export default Chat

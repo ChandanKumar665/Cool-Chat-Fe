@@ -33,12 +33,20 @@ tr:hover {
   }
 }
 .contactList{
-  display: flex;
+  height: 476px;
   width: auto;
+  overflow-y: auto;
 }
-.chat-area{
-  margin-left: 8px;
-  
+.chat-area {
+  // margin-left: 8px;
+  width: auto;
+  .chat-head{
+    padding: 0.5rem;
+  }
+}
+.brand{
+  font-size: 1rem;
+  color: #ffffff;
 }
 tbody td a {
   color: #222;
@@ -60,7 +68,17 @@ tbody td a {
 }
 
 .chat-box {
+  padding: 8px 0px;
+  border-radius: 2px;
+}
+.footer{
+  text-align: center;
   padding: 8px;
+  font-size: 12px;
+}
+.typing{
+  padding-left: 4px;
+  margin-bottom: 0px !important;
 }
 
 .msg-box-div {

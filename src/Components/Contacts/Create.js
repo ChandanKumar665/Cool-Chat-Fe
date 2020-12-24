@@ -36,31 +36,37 @@ const Create = ({ props }) => {
     { name: 'phone', value: phone, type: 'text', placeholder: 'Phone' }
   ]
   return (
-    <div>
-      <Navbar />
-      <div className='card border-0 shadow'>
-        <div className='card-header'>Add a contact</div>
-        <div className='card-body'>
-          <form onSubmit={createContact}>
-            {fields.map((field, i) => (
-              <div className='form-group' key={i}>
-                <input
-                  type={field.type}
-                  value={field.value}
-                  onChange={e => onFieldChange(e)}
-                  className='form-control'
-                  name={field.name}
-                  placeholder={field.placeholder}
-                />
-              </div>
-            ))}
-            <div className='form-group'>
-              <button type='submit' className='btn btn-primary'>
-                Add contact
-              </button>
+    <div className='container'>
+      <div className='row'>
+        <div className='col-sm-3'></div>
+        <div className='col-sm-6'>
+          <Navbar />
+          <div className='card border-0 shadow'>
+            <div className='card-header'>Add a contact</div>
+            <div className='card-body'>
+              <form onSubmit={createContact}>
+                {fields.map((field, i) => (
+                  <div className='form-group' key={i}>
+                    <input
+                      type={field.type}
+                      value={field.value}
+                      onChange={e => onFieldChange(e)}
+                      className='form-control'
+                      name={field.name}
+                      placeholder={field.placeholder}
+                    />
+                  </div>
+                ))}
+                <div className='form-group'>
+                  <button type='submit' className='btn btn-primary'>
+                    Add contact
+                  </button>
+                </div>
+              </form>
             </div>
-          </form>
+          </div>
         </div>
+        <div className='col-sm-3'></div>
       </div>
     </div>
   )

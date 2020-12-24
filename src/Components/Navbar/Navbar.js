@@ -9,12 +9,11 @@ const logout = e => {
 const Navbar = () => {
   return (
     <div>
-      <nav className='navbar shadow fixed-top navbar-expand-sm navbar-dark bg-primary'>
-        <div className=''>
-          <a href='/' className='navbar-brand'>
-            Chat Book
-          </a>
-        </div>
+      <nav className='navbar shadow navbar-expand-sm navbar-dark bg-primary'>
+        <a href='/' className='brand'>
+          Chat Book
+        </a>
+
         <div className='container'>
           <Menu logout={logout} />
         </div>
