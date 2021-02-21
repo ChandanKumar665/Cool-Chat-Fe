@@ -86,13 +86,7 @@ class Chat extends React.Component {
     this.send = this.send.bind(this)
     this.typing = this.typing.bind(this)
   }
-  componentDidUpdate (prevProps) {
-    if (prevProps.contact._id !== this.props.contact._id) {
-      console.log('not eq')
-      // const { chatList } = store.getState().ChatReducer
-      // this.displayChat(chatList, true)
-    }
-  }
+
   componentWillUnmount () {}
   reset () {
     this.setState({ msg: '', typing: '' })
